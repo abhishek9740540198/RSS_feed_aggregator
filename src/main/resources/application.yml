@@ -1,0 +1,35 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: rss-server
+  datasource:
+    url: ${DB_URL}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  data:
+    redis:
+      # REDIS_ADDR is parsed into host/port by RedisConfig (mirrors "host:port" style from Go)
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  jackson:
+    default-property-inclusion: non_null
+
+app:
+  jwt-secret: ${JWT_SECRET}
+  scrape-interval: ${SCRAPE_INTERVAL:1m}
+  max-concurrency: ${MAX_CONCURRENCY:5}
+  redis-addr: ${REDIS_ADDR:localhost:6379}
+
+logging:
+  level:
+    root: INFO
+    com.rssserver: INFO
